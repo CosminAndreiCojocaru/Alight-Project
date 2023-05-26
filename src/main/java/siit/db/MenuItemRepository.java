@@ -30,6 +30,12 @@ public class MenuItemRepository {
         String description = rs.getString("description");
         double price = rs.getDouble("price");
 
-        return new MenuItem(id, restaurantId, name, description, price);
+        MenuItem menuItem = new MenuItem(id, restaurantId, name, description, price);
+        menuItem.setQuantity(0); // Initialize quantity to 0
+        menuItem.setMentions(""); // Initialize mention to an empty string
+
+        return menuItem;
     }
+
+
 }

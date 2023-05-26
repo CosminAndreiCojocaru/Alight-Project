@@ -13,7 +13,12 @@ public class MenuItemService {
     @Autowired
     MenuItemRepository menuItemRepository;
 
-    public List<MenuItem> getBy(Integer id){
-        return menuItemRepository.getBy(id);
+    public List<MenuItem> getBy(Integer id) {
+        List<MenuItem> menuItems = menuItemRepository.getBy(id);
+        for (MenuItem menuItem : menuItems) {
+            menuItem.setQuantity(0); // Initialize quantity to 0
+            menuItem.setMentions(""); // Initialize mention to an empty string
+        }
+        return menuItems;
     }
 }

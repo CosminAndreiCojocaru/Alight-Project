@@ -7,6 +7,9 @@ public class MenuItem {
     private String description;
     private double price;
 
+    private int quantity;
+    private String mentions;
+
     public MenuItem() {
     }
 
@@ -17,6 +20,7 @@ public class MenuItem {
         this.description = description;
         this.price = price;
     }
+
 
     // Getters and setters
 
@@ -60,6 +64,22 @@ public class MenuItem {
         this.price = price;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getMentions() {
+        return mentions;
+    }
+
+    public void setMentions(String mentions) {
+        this.mentions = mentions;
+    }
+
     @Override
     public String toString() {
         return "MenuItem{" +
@@ -68,6 +88,8 @@ public class MenuItem {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
+                ", quantity=" + quantity +
+                ", mentions='" + mentions + '\'' +
                 '}';
     }
 }

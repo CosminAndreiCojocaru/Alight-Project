@@ -18,6 +18,10 @@ CREATE TABLE menu_items (
                             FOREIGN KEY (restaurant_id) REFERENCES restaurants (id)
 );
 
+ALTER TABLE menu_items ADD COLUMN quantity INT DEFAULT 0;
+ALTER TABLE menu_items ADD COLUMN mentions VARCHAR(255);
+
+
 
 CREATE TABLE orders (
                         id SERIAL PRIMARY KEY,

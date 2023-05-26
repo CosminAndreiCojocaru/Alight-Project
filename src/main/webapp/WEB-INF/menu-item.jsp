@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Menu Item</title>
@@ -25,15 +26,34 @@
         <tr>
             <th>Name</th>
             <th>Description</th>
-            <th>price</th>
+            <th>Price</th>
         </tr>
         <c:forEach items="${restaurants.menuItem}" var="menuitem">
-        <tr>
-            <td><c:out value="${menuitem.name}"/></td>
-            <td><c:out value="${menuitem.description}"/></td>
-            <td><c:out value="${menuitem.price}"/></td>
-        </tr>
+            <tr>
+                <td><c:out value="${menuitem.name}"/></td>
+                <td><c:out value="${menuitem.description}"/></td>
+                <td><c:out value="${menuitem.price}"/></td>
+
+            </tr>
         </c:forEach>
+    </table>
+
+    <form action="<c:url value='/restaurants/${restaurants.id}/menuitem/addtocart'/>" method="post">
+        <div class="form-group">
+            <label for="itemId">Item ID:</label>
+            <input type="text" class="form-control" id="itemId" name="itemId">
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="text" class="form-control" id="quantity" name="quantity">
+        </div>
+        <div class="form-group">
+            <label for="mention">Mention:</label>
+            <input type="text" class="form-control" id="mention" name="mention">
+        </div>
+        <button type="submit" class="btn btn-primary">Add to Cart</button>
+    </form>
+
 </div>
 </body>
 </html>
