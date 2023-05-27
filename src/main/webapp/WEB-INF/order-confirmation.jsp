@@ -9,12 +9,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Order Confirmation</title>
+    <<title>Order Confirmation</title>
     <!-- Add your CSS and JavaScript references here -->
 </head>
 <body>
 <h2>Order Confirmation</h2>
-<p>Your order has been confirmed. Your unique code is: <strong>${uniqueCode}</strong></p>
-<p>Please make a note of this code for future reference.</p>
+<p>Thank you for your order, <strong>${order.name}</strong>!</p>
+<p>Your order details:</p>
+<ul>
+    <li>Name: ${order.name}</li>
+    <li>Address: ${order.address}</li>
+    <li>Distance: ${order.distance} km</li>
+    <li>Mention: ${order.mention}</li>
+    <li>Unique Code: ${order.uniqueCode}</li>
+</ul>
+<p>Please make a note of your unique code for future reference.</p>
+<p>Click <a href="/restaurants">here</a> to go back to the homepage.</p>
 </body>
 </html>
