@@ -5,8 +5,9 @@ public class CartItem {
     private int quantity;
     private String mention;
 
-    public CartItem(Integer itemId, Integer quantity, String mention) {
-        this.menuItem = new MenuItem(itemId, 0, null, null, 0.0); // Replace the 0s and nulls with appropriate values
+
+    public CartItem(Integer itemId, Integer quantity, String mention, String Itemname) {
+        this.menuItem = new MenuItem(itemId, 0, Itemname, null, 0.0); // Replace the 0s and nulls with appropriate values
         this.quantity = quantity;
         this.mention = mention;
     }

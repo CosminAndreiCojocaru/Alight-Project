@@ -18,26 +18,39 @@
 <body>
 <div class="container">
     <h2>Complete Order</h2>
-    <form method="post" action="/restaurants/${restaurants.id}/complete-order">
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-            <label for="address">Address:</label>
-            <input type="text" class="form-control" id="address" name="address" required>
-        </div>
-        <div class="form-group">
-            <label for="distance">Distance in km:</label>
-            <input type="number" class="form-control" id="distance" name="distance" required>
-        </div>
-        <div class="form-group">
-            <label for="mention">Order mentions:</label>
-            <input type="text" class="form-control" id="mention" name="mention">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+    <%-- Add an empty <div> to hold the unique code --%>
+    <div id="uniqueCode"></div>
+
+    <form id="orderForm" action="/restaurants/${restaurants.id}/complete-order" method="POST">
+        <input type="text" name="name" placeholder="Name" required><br>
+        <input type="text" name="address" placeholder="Address" required><br>
+        <input type="number" name="distance" placeholder="Distance in km" required><br>
+        <input type="text" name="mention" placeholder="Order Mentions"><br>
+        <button type="submit">Submit</button>
     </form>
+
+    <script>
+        // Submit the form using AJAX
+        document.getElementById("orderForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+            var form = event.target;
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Display the unique code in the <div>
+                        document.getElementById("uniqueCode").innerHTML = "Unique Code: " + xhr.responseText;
+                    } else {
+                        // Handle error case
+                    }
+                }
+            };
+            xhr.open(form.method, form.action, true);
+            xhr.send(new FormData(form));
+        });
+    </script>
 </div>
+<p>Click <a href="/restaurants">here</a> to go back to the homepage.</p>
 </body>
 </html>
 

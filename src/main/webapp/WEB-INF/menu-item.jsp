@@ -41,11 +41,22 @@
     <form action="<c:url value='/restaurants/${restaurants.id}/menuitem/addtocart'/>" method="post">
         <div class="form-group">
             <label for="itemId">Item ID:</label>
-            <input type="text" class="form-control" id="itemId" name="itemId">
+            <input type="text" class="form-control" id="itemId" name="itemId" required>
+            <c:if test="${not empty param.itemId and param.itemId == ''}">
+                <small class="text-danger">Please enter a valid item ID.</small>
+            </c:if>
         </div>
         <div class="form-group">
             <label for="quantity">Quantity:</label>
-            <input type="text" class="form-control" id="quantity" name="quantity">
+            <input type="text" class="form-control" id="quantity" name="quantity" required>
+            <c:if test="${not empty param.quantity and param.quantity == ''}">
+                <small class="text-danger">Please enter a valid quantity.</small>
+            </c:if>
+        </div>
+        <div class="form-group">
+            <label for="itemName"></label>
+            <input type="text" class="form-control" id="itemName" name="itemName" required>
+
         </div>
         <div class="form-group">
             <label for="mention">Mention:</label>

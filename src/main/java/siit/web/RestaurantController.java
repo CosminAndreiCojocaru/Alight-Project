@@ -44,6 +44,7 @@ public class RestaurantController {
     @RequestMapping(method = RequestMethod.POST, path = "/{id}/menuitem/addtocart")
     public ModelAndView addToCart(@PathVariable Integer id, @RequestParam("itemId") Integer itemId,
                                   @RequestParam("quantity") Integer quantity, @RequestParam("mention") String mention,
+                                  @RequestParam("itemName") String itemName,
                                   HttpSession session) {
         // Get the cart items from the session or create a new list if it doesn't exist
         List<CartItem> cartItems = (List<CartItem>) session.getAttribute("restaurants");
@@ -52,7 +53,7 @@ public class RestaurantController {
         }
 
         // Create a new cart item with the provided parameters
-        CartItem cartItem = new CartItem(itemId, quantity, mention);
+        CartItem cartItem = new CartItem(itemId, quantity, mention, itemName);
         cartItems.add(cartItem);
 
         // Update the cart items in the session
@@ -83,18 +84,17 @@ public class RestaurantController {
     private Map<String, Order> orderMap = new HashMap<>();
 
     @RequestMapping(method = RequestMethod.POST, path = "/{id}/complete-order")
-    public ModelAndView completeOrder(@PathVariable Integer id, @ModelAttribute("order") Order order) {
+    @ResponseBody
+    public String completeOrder(@PathVariable Integer id, @ModelAttribute("order") Order order) {
         String uniqueCode = generateUniqueCode(); // Implement your logic to generate a unique code
         order.setUniqueCode(uniqueCode);
         orderMap.put(uniqueCode, order);
 
-        ModelAndView mav = new ModelAndView("order-confirmation");
-        mav.addObject("uniqueCode", uniqueCode);
-        return mav;
+        return uniqueCode;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/order-details")
-    public ModelAndView showOrderDetails(@RequestParam("code") String code) {
+    @RequestMapping(method = RequestMethod.GET, path = "/order-confirmation")
+    public ModelAndView showOrderConfirmation(@RequestParam("code") String code) {
         Order order = orderMap.get(code);
 
         ModelAndView mav = new ModelAndView("order-confirmation");

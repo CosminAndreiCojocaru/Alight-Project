@@ -21,6 +21,7 @@
         .moved-button {
             position: absolute; /* Set the button position to absolute */
             top: 50px; /* Adjust the top position as desired */
+            right: 1cm;
             font-family: Arial, sans-serif;
         }
     </style>

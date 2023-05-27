@@ -37,9 +37,9 @@ public class RestaurantRepository {
         String name = rs.getString("name");
         String schedule = rs.getString("schedule");
         BigDecimal minimumOrder = rs.getBigDecimal("minimum_order");
-        BigDecimal standardDeliveryDistance = rs.getBigDecimal("standard_delivery_distance");
-        BigDecimal standardDeliveryPrice = rs.getBigDecimal("standard_delivery_price");
-        BigDecimal extraDeliveryFee = rs.getBigDecimal("extra_delivery_fee");
+        Double standardDeliveryDistance = rs.getDouble("standard_delivery_distance");
+        Double standardDeliveryPrice = rs.getDouble("standard_delivery_price");
+        Double extraDeliveryFee = rs.getDouble("extra_delivery_fee");
         return new Restaurant(id, name, schedule, minimumOrder, standardDeliveryDistance, standardDeliveryPrice, extraDeliveryFee);
     }
 

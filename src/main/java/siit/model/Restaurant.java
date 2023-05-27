@@ -8,12 +8,12 @@ public class Restaurant {
     private String name;
     private String schedule;
     private BigDecimal minimumOrder;
-    private BigDecimal standardDeliveryDistance;
-    private BigDecimal standardDeliveryPrice;
-    private BigDecimal extraDeliveryFee;
+    private Double standardDeliveryDistance;
+    private Double standardDeliveryPrice;
+    private Double extraDeliveryFee;
     List<MenuItem> menuItem;
 
-    public Restaurant(int id, String name, String schedule, BigDecimal minimumOrder, BigDecimal standardDeliveryDistance, BigDecimal standardDeliveryPrice, BigDecimal extraDeliveryFee) {
+    public Restaurant(int id, String name, String schedule, BigDecimal minimumOrder, Double standardDeliveryDistance, Double standardDeliveryPrice, Double extraDeliveryFee) {
         this.id = id;
         this.name = name;
         this.schedule = schedule;
@@ -55,27 +55,27 @@ public class Restaurant {
         this.minimumOrder = minimumOrder;
     }
 
-    public BigDecimal getStandardDeliveryDistance() {
+    public Double getStandardDeliveryDistance() {
         return standardDeliveryDistance;
     }
 
-    public void setStandardDeliveryDistance(BigDecimal standardDeliveryDistance) {
+    public void setStandardDeliveryDistance(Double standardDeliveryDistance) {
         this.standardDeliveryDistance = standardDeliveryDistance;
     }
 
-    public BigDecimal getStandardDeliveryPrice() {
+    public Double getStandardDeliveryPrice() {
         return standardDeliveryPrice;
     }
 
-    public void setStandardDeliveryPrice(BigDecimal standardDeliveryPrice) {
+    public void setStandardDeliveryPrice(Double standardDeliveryPrice) {
         this.standardDeliveryPrice = standardDeliveryPrice;
     }
 
-    public BigDecimal getExtraDeliveryFee() {
+    public Double getExtraDeliveryFee() {
         return extraDeliveryFee;
     }
 
-    public void setExtraDeliveryFee(BigDecimal extraDeliveryFee) {
+    public void setExtraDeliveryFee(Double extraDeliveryFee) {
         this.extraDeliveryFee = extraDeliveryFee;
     }
 
