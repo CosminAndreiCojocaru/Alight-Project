@@ -6,12 +6,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import siit.model.CartItem;
+import siit.model.Order;
 import siit.model.Restaurant;
 import siit.service.RestaurantService;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(path = "/restaurants")
@@ -68,6 +71,49 @@ public class RestaurantController {
 
         return mav;
     }
+
+
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}/complete-order")
+    public ModelAndView showCompleteOrderForm(@PathVariable Integer id) {
+        ModelAndView mav = new ModelAndView("complete-order");
+        mav.addObject("restaurants", restaurantService.getBy(id));
+        return mav;
+    }
+
+    private Map<String, Order> orderMap = new HashMap<>();
+
+    @RequestMapping(method = RequestMethod.POST, path = "/{id}/complete-order")
+    public ModelAndView completeOrder(@PathVariable Integer id, @ModelAttribute("order") Order order) {
+        String uniqueCode = generateUniqueCode(); // Implement your logic to generate a unique code
+        order.setUniqueCode(uniqueCode);
+        orderMap.put(uniqueCode, order);
+
+        ModelAndView mav = new ModelAndView("order-confirmation");
+        mav.addObject("uniqueCode", uniqueCode);
+        return mav;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/order-details")
+    public ModelAndView showOrderDetails(@RequestParam("code") String code) {
+        Order order = orderMap.get(code);
+
+        ModelAndView mav = new ModelAndView("order-confirmation");
+        mav.addObject("order", order);
+        return mav;
+    }
+
+    public static String generateUniqueCode() {
+        // Generate a unique code using a combination of timestamp and a random number
+        long timestamp = System.currentTimeMillis();
+        int randomNumber = (int) (Math.random() * 10000);
+        String uniqueCode = timestamp + "-" + randomNumber;
+
+        // Alternatively, you can use UUID to generate a unique code
+        // String uniqueCode = UUID.randomUUID().toString();
+
+        return uniqueCode;
+    }
+
 
 
 }
