@@ -1,9 +1,9 @@
-package siit.db;
+package all.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import siit.model.MenuItem;
+import all.model.MenuItem;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +21,7 @@ public class MenuItemRepository {
         List<MenuItem> menuItem =jdbcTemplate.query(sql, this:: extractMenuItem, id);
         return menuItem;
     }
+
 
 
     private MenuItem extractMenuItem(ResultSet rs, int rowNumb) throws SQLException {

@@ -1,10 +1,10 @@
-package siit.db;
+package all.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import org.springframework.stereotype.Repository;
-import siit.model.Restaurant;
+import all.model.Restaurant;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;

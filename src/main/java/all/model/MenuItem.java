@@ -1,4 +1,4 @@
-package siit.model;
+package all.model;
 
 public class MenuItem {
     private int id;

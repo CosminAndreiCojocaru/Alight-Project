@@ -1,4 +1,7 @@
-package siit.model;
+package all.model;
+
+import all.repository.MenuItemRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -87,17 +90,34 @@ public class Restaurant {
         this.menuItem = menuItem;
     }
 
+
     @Override
     public String toString() {
-        return "Restaurant{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", schedule='" + schedule + '\'' +
-                ", minimumOrder=" + minimumOrder +
-                ", standardDeliveryDistance=" + standardDeliveryDistance +
-                ", standardDeliveryPrice=" + standardDeliveryPrice +
-                ", extraDeliveryFee=" + extraDeliveryFee +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Restaurant{")
+                .append("id=").append(id)
+                .append(", name='").append(name).append('\'')
+                .append(", schedule='").append(schedule).append('\'')
+                .append(", minimumOrder=").append(minimumOrder)
+                .append(", standardDeliveryDistance=").append(standardDeliveryDistance)
+                .append(", standardDeliveryPrice=").append(standardDeliveryPrice)
+                .append(", extraDeliveryFee=").append(extraDeliveryFee);
+
+        if (menuItem != null && !menuItem.isEmpty()) {
+            sb.append(", menu items=[");
+            for (MenuItem item : menuItem) {
+                sb.append(item.getName()).append(", ");
+            }
+            sb.delete(sb.length() - 2, sb.length());  // Remove the trailing comma and space
+            sb.append("]");
+        } else if (name != null && !name.isEmpty()) {
+            sb.append(", menu items not available for ").append(name);
+        } else {
+            sb.append(", menu items not available");
+        }
+
+        sb.append('}');
+        return sb.toString();
     }
 }
 

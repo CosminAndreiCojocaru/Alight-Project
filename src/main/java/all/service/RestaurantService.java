@@ -1,11 +1,13 @@
-package siit.service;
+package all.service;
 
+import all.model.MenuItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import siit.db.MenuItemRepository;
-import siit.db.RestaurantRepository;
-import siit.model.Restaurant;
+import all.repository.MenuItemRepository;
+import all.repository.RestaurantRepository;
+import all.model.Restaurant;
 
+import java.awt.*;
 import java.util.List;
 
 @Service

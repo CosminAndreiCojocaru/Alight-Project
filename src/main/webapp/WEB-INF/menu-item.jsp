@@ -42,9 +42,11 @@
         <div class="form-group" style="display: none;">
             <label for="itemId">Item ID:</label>
             <input type="text" class="form-control" id="itemId" name="itemId" value="${restaurants.id}" readonly>
-            <c:if test="${not empty param.itemId and param.itemId == ''}">
-                <small class="text-danger">Please enter a valid item ID.</small>
-            </c:if>
+        </div>
+
+        <div class="form-group">
+            <label for="name">Item Name:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
         </div>
         <div class="form-group">
             <label for="quantity">Quantity:</label>
@@ -53,11 +55,6 @@
                 <small class="text-danger">Please enter a valid quantity.</small>
             </c:if>
         </div>
-        <div class="form-group">
-            <label for="itemName">Item Name:</label>
-            <input type="text" class="form-control" id="itemName" name="itemName" required>
-        </div>
-        <div class="form-group">
         <div class="form-group">
             <label for="mention">Mention:</label>
             <input type="text" class="form-control" id="mention" name="mention">

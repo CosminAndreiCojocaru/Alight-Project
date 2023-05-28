@@ -1,4 +1,4 @@
-package siit.model;
+package all.model;
 
 public class CartItem {
     private MenuItem menuItem;
@@ -6,8 +6,8 @@ public class CartItem {
     private String mention;
 
 
-    public CartItem(Integer itemId, Integer quantity, String mention, String Itemname) {
-        this.menuItem = new MenuItem(itemId, 0, Itemname, null, 0.0); // Replace the 0s and nulls with appropriate values
+    public CartItem(Integer itemId, Integer quantity, String mention, String name) {
+        this.menuItem = new MenuItem(itemId, 0, name, null, 0.0); // Replace the 0s and nulls with appropriate values
         this.quantity = quantity;
         this.mention = mention;
     }

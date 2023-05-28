@@ -1,14 +1,14 @@
-package siit.web;
+package all.web;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import siit.model.CartItem;
-import siit.model.Order;
-import siit.model.Restaurant;
-import siit.service.RestaurantService;
+import all.model.CartItem;
+import all.model.Order;
+import all.model.Restaurant;
+import all.service.RestaurantService;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -37,6 +37,8 @@ public class RestaurantController {
         ModelAndView mav = new ModelAndView("menu-item");
         Restaurant restaurant = restaurantService.getBy(id);
         mav.addObject("restaurants", restaurant);
+
+
         return mav;
     }
 
@@ -44,16 +46,16 @@ public class RestaurantController {
     @RequestMapping(method = RequestMethod.POST, path = "/{id}/menuitem/addtocart")
     public ModelAndView addToCart(@PathVariable Integer id, @RequestParam("itemId") Integer itemId,
                                   @RequestParam("quantity") Integer quantity, @RequestParam("mention") String mention,
-                                  @RequestParam("itemName") String itemName,
+                                  @RequestParam("name") String name,
                                   HttpSession session) {
-        // Get the cart items from the session or create a new list if it doesn't exist
+
         List<CartItem> cartItems = (List<CartItem>) session.getAttribute("restaurants");
         if (cartItems == null) {
             cartItems = new ArrayList<>();
         }
 
         // Create a new cart item with the provided parameters
-        CartItem cartItem = new CartItem(itemId, quantity, mention, itemName);
+        CartItem cartItem = new CartItem(itemId, quantity, mention, name);
         cartItems.add(cartItem);
 
         // Update the cart items in the session
