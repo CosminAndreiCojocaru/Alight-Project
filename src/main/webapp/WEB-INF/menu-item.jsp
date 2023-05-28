@@ -39,9 +39,9 @@
     </table>
 
     <form action="<c:url value='/restaurants/${restaurants.id}/menuitem/addtocart'/>" method="post">
-        <div class="form-group">
+        <div class="form-group" style="display: none;">
             <label for="itemId">Item ID:</label>
-            <input type="text" class="form-control" id="itemId" name="itemId" required>
+            <input type="text" class="form-control" id="itemId" name="itemId" value="${restaurants.id}" readonly>
             <c:if test="${not empty param.itemId and param.itemId == ''}">
                 <small class="text-danger">Please enter a valid item ID.</small>
             </c:if>
@@ -54,10 +54,10 @@
             </c:if>
         </div>
         <div class="form-group">
-            <label for="itemName"></label>
+            <label for="itemName">Item Name:</label>
             <input type="text" class="form-control" id="itemName" name="itemName" required>
-
         </div>
+        <div class="form-group">
         <div class="form-group">
             <label for="mention">Mention:</label>
             <input type="text" class="form-control" id="mention" name="mention">
