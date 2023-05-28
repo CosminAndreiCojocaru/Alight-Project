@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <<title>Order Confirmation</title>
+    <title>Order Confirmation</title>
 </head>
 <body>
 <h2>Order Confirmation</h2>
