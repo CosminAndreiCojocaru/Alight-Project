@@ -31,8 +31,8 @@ public class MenuItemRepository {
         double price = rs.getDouble("price");
 
         MenuItem menuItem = new MenuItem(id, restaurantId, name, description, price);
-        menuItem.setQuantity(0); // Initialize quantity to 0
-        menuItem.setMentions(""); // Initialize mention to an empty string
+        menuItem.setQuantity(0);
+        menuItem.setMentions("");
 
         return menuItem;
     }

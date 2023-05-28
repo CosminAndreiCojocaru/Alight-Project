@@ -10,7 +10,6 @@
 <html>
 <head>
     <<title>Order Confirmation</title>
-    <!-- Add your CSS and JavaScript references here -->
 </head>
 <body>
 <h2>Order Confirmation</h2>

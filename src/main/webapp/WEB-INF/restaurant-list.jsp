@@ -113,9 +113,6 @@
     </table>
 </div>
 
-<script>
-    // Your JavaScript code here (if needed)
-</script>
 <h3>Check Order Details</h3>
 <form action="<c:url value='/restaurants/order-confirmation'/>" method="GET">
     <input type="text" name="code" placeholder="Enter unique code" required>

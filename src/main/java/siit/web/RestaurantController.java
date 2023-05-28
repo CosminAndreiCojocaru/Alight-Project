@@ -108,9 +108,6 @@ public class RestaurantController {
         int randomNumber = (int) (Math.random() * 10000);
         String uniqueCode = timestamp + "-" + randomNumber;
 
-        // Alternatively, you can use UUID to generate a unique code
-        // String uniqueCode = UUID.randomUUID().toString();
-
         return uniqueCode;
     }
 
