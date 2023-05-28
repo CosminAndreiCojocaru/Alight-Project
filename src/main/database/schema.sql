@@ -20,19 +20,3 @@ CREATE TABLE menu_items (
 
 ALTER TABLE menu_items ADD COLUMN quantity INT DEFAULT 0;
 ALTER TABLE menu_items ADD COLUMN mentions VARCHAR(255);
-
-
-
-CREATE TABLE orders (
-                        id SERIAL PRIMARY KEY,
-                        restaurant_id INT NOT NULL,
-                        name VARCHAR(100) NOT NULL,
-                        address TEXT NOT NULL,
-                        distance DECIMAL(10, 2) NOT NULL,
-                        order_mentions TEXT,
-                        total_price DECIMAL(10, 2) NOT NULL,
-                        delivery_fee DECIMAL(10, 2) NOT NULL,
-                        order_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        order_status VARCHAR(20) NOT NULL,
-                        FOREIGN KEY (restaurant_id) REFERENCES restaurants (id)
-);
