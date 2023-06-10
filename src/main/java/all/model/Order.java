@@ -1,11 +1,15 @@
 package all.model;
 
+import java.util.List;
+
 public class Order {
     private String name;
     private String address;
     private double distance;
     private String mention;
     private String uniqueCode;
+    private List<CartItem> cartItems;
+    private List<Restaurant> restaurants;
 
     // Constructors, getters, and setters
 
@@ -56,4 +60,21 @@ public class Order {
     public void setUniqueCode(String uniqueCode) {
         this.uniqueCode = uniqueCode;
     }
+
+    public List<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
+
+    public List<Restaurant> getRestaurants() {
+        return restaurants;
+    }
+
+    public void setRestaurants(List<Restaurant> restaurants) {
+        this.restaurants = restaurants;
+    }
+
 }
