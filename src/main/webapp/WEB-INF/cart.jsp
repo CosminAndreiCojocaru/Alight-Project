@@ -20,7 +20,7 @@
         /* Define a custom class for the button */
         .moved-button {
             position: absolute; /* Set the button position to absolute */
-            top: 50px; /* Adjust the top position as desired */
+            top: 50px;
             right: 1cm;
             font-family: Arial, sans-serif;
         }
