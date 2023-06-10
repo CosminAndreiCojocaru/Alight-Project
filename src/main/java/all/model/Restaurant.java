@@ -10,13 +10,13 @@ public class Restaurant {
     private int id;
     private String name;
     private String schedule;
-    private BigDecimal minimumOrder;
+    private Double minimumOrder;
     private Double standardDeliveryDistance;
     private Double standardDeliveryPrice;
     private Double extraDeliveryFee;
     List<MenuItem> menuItem;
 
-    public Restaurant(int id, String name, String schedule, BigDecimal minimumOrder, Double standardDeliveryDistance, Double standardDeliveryPrice, Double extraDeliveryFee) {
+    public Restaurant(int id, String name, String schedule, Double minimumOrder, Double standardDeliveryDistance, Double standardDeliveryPrice, Double extraDeliveryFee) {
         this.id = id;
         this.name = name;
         this.schedule = schedule;
@@ -25,6 +25,8 @@ public class Restaurant {
         this.standardDeliveryPrice = standardDeliveryPrice;
         this.extraDeliveryFee = extraDeliveryFee;
     }
+
+
 
     public int getId() {
         return id;
@@ -50,11 +52,11 @@ public class Restaurant {
         this.schedule = schedule;
     }
 
-    public BigDecimal getMinimumOrder() {
+    public Double getMinimumOrder() {
         return minimumOrder;
     }
 
-    public void setMinimumOrder(BigDecimal minimumOrder) {
+    public void setMinimumOrder(Double minimumOrder) {
         this.minimumOrder = minimumOrder;
     }
 
@@ -118,6 +120,24 @@ public class Restaurant {
 
         sb.append('}');
         return sb.toString();
+    }
+
+    private Double extraDistanceChargePerKm;
+
+    // ...
+
+    public Double getExtraDistanceChargePerKm() {
+        return extraDistanceChargePerKm;
+    }
+
+    public void setExtraDistanceChargePerKm(Double extraDistanceChargePerKm) {
+        this.extraDistanceChargePerKm = extraDistanceChargePerKm;
+    }
+
+    // ...
+
+    public Double getMinimumOrderAmount() {
+        return minimumOrder;
     }
 }
 
