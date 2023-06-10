@@ -5,9 +5,8 @@ public class CartItem {
     private int quantity;
     private String mention;
 
-
-    public CartItem(Integer itemId, Integer quantity, String mention, String name) {
-        this.menuItem = new MenuItem(itemId, 0, name, null, 0.0); // Replace the 0s and nulls with appropriate values
+    public CartItem(Integer itemId, Integer quantity, String mention, String name, double price) {
+        this.menuItem = new MenuItem(itemId, 0, name, null, price); // Replace the 0s and nulls with appropriate values
         this.quantity = quantity;
         this.mention = mention;
     }
@@ -36,5 +35,6 @@ public class CartItem {
     public void setMention(String mention) {
         this.mention = mention;
     }
+
 }
 
