@@ -46,8 +46,16 @@ public class RestaurantController {
     @RequestMapping(method = RequestMethod.POST, path = "/{id}/menuitem/addtocart")
     public ModelAndView addToCart(@PathVariable Integer id, @RequestParam("itemId") Integer itemId,
                                   @RequestParam("quantity") Integer quantity, @RequestParam("mention") String mention,
-                                  @RequestParam("name") String name,
+                                  @RequestParam("name") String name, @RequestParam("price") double price,
                                   HttpSession session) {
+
+        // Check if there is an existing cart for a different restaurant
+        Integer existingRestaurantId = (Integer) session.getAttribute("restaurantId");
+        if (existingRestaurantId != null && !existingRestaurantId.equals(id)) {
+            // If there is an existing cart for a different restaurant, clear it before adding items from a new restaurant
+            session.removeAttribute("restaurants");
+            session.removeAttribute("restaurantId");
+        }
 
         List<CartItem> cartItems = (List<CartItem>) session.getAttribute("restaurants");
         if (cartItems == null) {
@@ -55,11 +63,12 @@ public class RestaurantController {
         }
 
         // Create a new cart item with the provided parameters
-        CartItem cartItem = new CartItem(itemId, quantity, mention, name);
+        CartItem cartItem = new CartItem(itemId, quantity, mention, name, price);
         cartItems.add(cartItem);
 
-        // Update the cart items in the session
+        // Update the cart items and restaurant ID in the session
         session.setAttribute("restaurants", cartItems);
+        session.setAttribute("restaurantId", id);
 
         return new ModelAndView("redirect:/restaurants/cart");
     }
@@ -87,13 +96,54 @@ public class RestaurantController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/{id}/complete-order")
     @ResponseBody
-    public String completeOrder(@PathVariable Integer id, @ModelAttribute("order") Order order) {
+    public String completeOrder(@PathVariable Integer id, @ModelAttribute("order") Order order, HttpSession session) {
         String uniqueCode = generateUniqueCode(); // Implement your logic to generate a unique code
         order.setUniqueCode(uniqueCode);
+
+        // Get the cart items from the session and add them to the order
+        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("restaurants");
+        order.setCartItems(cartItems);
+
+        Restaurant restaurant = restaurantService.getBy(id);
+        List<Restaurant> restaurants = new ArrayList<>();
+        restaurants.add(restaurant);
+        order.setRestaurants(restaurants);
+
+        double totalOrderAmount = calculateTotalOrderAmount(order); // Calculate the total order amount
+
+        // Check if the total order amount meets the minimum order requirement
+        double minimumOrderAmount = restaurant.getMinimumOrderAmount();
+        if (totalOrderAmount < minimumOrderAmount) {
+            // Return an error message or perform appropriate action
+            return "The minimum order amount for this restaurant is $" + minimumOrderAmount;
+        }
+
         orderMap.put(uniqueCode, order);
 
         return uniqueCode;
     }
+
+    private double calculateTotalOrderAmount(Order order) {
+        double totalOrderAmount = 0;
+
+        // Calculate the total order amount by summing the item prices
+        for (CartItem cartItem : order.getCartItems()) {
+            double itemPrice = cartItem.getMenuItem().getPrice();
+            int quantity = cartItem.getQuantity();
+            totalOrderAmount += itemPrice * quantity;
+        }
+
+        // Add the standard delivery price and extra distance charge to the total order amount
+        totalOrderAmount += order.getRestaurants().get(0).getStandardDeliveryPrice();
+        double extraDistance = order.getDistance() - order.getRestaurants().get(0).getStandardDeliveryDistance();
+        if (extraDistance > 0) {
+            double extraDistanceCharge = extraDistance * order.getRestaurants().get(0).getExtraDeliveryFee();
+            totalOrderAmount += extraDistanceCharge;
+        }
+
+        return totalOrderAmount;
+    }
+
 
     @RequestMapping(method = RequestMethod.GET, path = "/order-confirmation")
     public ModelAndView showOrderConfirmation(@RequestParam("code") String code) {
@@ -103,6 +153,7 @@ public class RestaurantController {
         mav.addObject("order", order);
         return mav;
     }
+
 
     public static String generateUniqueCode() {
         // Generate a unique code using a combination of timestamp and a random number
