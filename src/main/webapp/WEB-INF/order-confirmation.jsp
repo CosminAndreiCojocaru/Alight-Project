@@ -11,10 +11,58 @@
 <html>
 <head>
     <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        #totalPrice {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .homepage-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .homepage-link:hover {
+            text-decoration: underline;
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-            // Calculate and display the total price
             var totalPrice = 0;
             var standardDeliveryDistance = parseFloat('${order.restaurants[0].standardDeliveryDistance}');
             var extraDeliveryFee = parseFloat('${order.restaurants[0].extraDeliveryFee}');
@@ -27,14 +75,12 @@
                 }
             });
 
-            // Calculate extra distance charge
             var extraDistance = distance - standardDeliveryDistance;
             if (extraDistance > 0) {
                 var extraDistanceCharge = extraDistance * extraDeliveryFee;
                 totalPrice += extraDistanceCharge;
             }
 
-            // Add the standard delivery price
             var standardDeliveryPrice = parseFloat('${order.restaurants[0].standardDeliveryPrice}');
             if (!isNaN(standardDeliveryPrice)) {
                 totalPrice += standardDeliveryPrice;
@@ -49,11 +95,11 @@
 <p>Thank you for your order, <strong>${order.name}</strong>!</p>
 <p>Your order details:</p>
 <ul>
-    <li>Name: ${order.name}</li>
-    <li>Address: ${order.address}</li>
-    <li>Distance: ${order.distance} km</li>
-    <li>Mention: ${order.mention}</li>
-    <li>Unique Code: ${order.uniqueCode}</li>
+    <li><strong>Name:</strong> ${order.name}</li>
+    <li><strong>Address:</strong> ${order.address}</li>
+    <li><strong>Distance:</strong> ${order.distance} km</li>
+    <li><strong>Mention:</strong> ${order.mention}</li>
+    <li><strong>Unique Code:</strong> ${order.uniqueCode}</li>
 </ul>
 <p>Ordered Items:</p>
 <table>
@@ -74,11 +120,11 @@
         </tr>
     </c:forEach>
 </table>
-<p>Standard Delivery Distance: ${order.restaurants[0].standardDeliveryDistance} km</p>
-<p>Standard Delivery Price: $${order.restaurants[0].standardDeliveryPrice}</p>
-<p>Extra Distance Charge Per Km: $${order.restaurants[0].extraDeliveryFee}</p>
-<p>Total Price: $<span id="totalPrice">0.00</span></p>
+<p><strong>Standard Delivery Distance:</strong> ${order.restaurants[0].standardDeliveryDistance} km</p>
+<p><strong>Standard Delivery Price:</strong> $${order.restaurants[0].standardDeliveryPrice}</p>
+<p><strong>Extra Distance Charge Per Km:</strong> $${order.restaurants[0].extraDeliveryFee}</p>
+<p><strong>Total Price:</strong> $<span id="totalPrice">0.00</span></p>
 <p>Please make a note of your unique code for future reference.</p>
-<p>Click <a href="/restaurants">here</a> to go back to the homepage.</p>
+<p>Click <a class="homepage-link" href="/restaurants">here</a> to go back to the homepage.</p>
 </body>
 </html>
