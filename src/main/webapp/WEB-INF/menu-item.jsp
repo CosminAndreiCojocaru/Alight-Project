@@ -15,6 +15,18 @@
           rel="stylesheet"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
+    <style>
+        .dollar-button {
+            background-color: #50981d;
+            border-color: #377210;
+            color: #fff;
+        }
+
+        .dollar-button:hover {
+            background-color: #5dbb20;
+            border-color: #5bb421;
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -98,9 +110,10 @@
                 <small class="text-danger">Please enter a valid price.</small>
             </c:if>
         </div>
-        <button type="submit" class="btn btn-primary">Add to Cart</button>
+        <button type="submit" class="btn btn-primary dollar-button">Add to Cart</button>
     </form>
 
 </div>
 </body>
 </html>
+
