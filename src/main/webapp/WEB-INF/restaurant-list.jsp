@@ -74,6 +74,31 @@
             font-family: "Copperplate", emoji;
         }
 
+        .order-details {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .order-details input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .order-details button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .order-details button[type="submit"]:hover {
+            background-color: #0069d9;
+        }
     </style>
 </head>
 
@@ -113,11 +138,14 @@
     </table>
 </div>
 
-<h3>Check Order Details</h3>
-<form action="<c:url value='/restaurants/order-confirmation'/>" method="GET">
-    <input type="text" name="code" placeholder="Enter unique code" required>
-    <button type="submit">Check Order</button>
-</form>
-</form>
+<div class="order-details">
+    <h3>Check Order Details</h3>
+    <form action="<c:url value='/restaurants/order-confirmation'/>" method="GET">
+        <input type="text" name="code" placeholder="Enter unique code" required>
+        <br>
+        <button type="submit">Check Order</button>
+    </form>
+</div>
+
 </body>
 </html>
