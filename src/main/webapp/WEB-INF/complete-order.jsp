@@ -89,19 +89,6 @@
             text-decoration: underline;
         }
 
-        .back-to-home p {
-            font-size: 14px;
-        }
-
-        .back-to-home .home-link {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .back-to-home .home-link:hover {
-            text-decoration: underline;
-        }
-
         .back {
             display: flex;
             justify-content: center;
@@ -173,6 +160,12 @@
                         var codeValue = document.getElementById("codeValue");
                         codeValue.textContent = xhr.responseText;
                         uniqueCodeSection.style.display = "block";
+
+                        // Check if the unique code contains only digits and dashes
+                        var regex = /^[\d-]+$/;
+                        if (regex.test(xhr.responseText)) {
+                            document.getElementById("backButton").style.display = "none";
+                        }
                     } else {
                         // Handle error case
                     }
@@ -190,7 +183,7 @@
 
 <c:if test="${not empty param.minOrderAmount}">
     <div class="back">
-        <button onclick="window.history.back()">Back</button>
+        <button id="backButton" onclick="window.history.back()">Back</button>
     </div>
 </c:if>
 </html>
