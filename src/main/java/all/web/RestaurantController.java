@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @Controller
 @RequestMapping(path = "/restaurants")
 @RestController
@@ -97,8 +98,14 @@ public class RestaurantController {
     @RequestMapping(method = RequestMethod.POST, path = "/{id}/complete-order")
     @ResponseBody
     public String completeOrder(@PathVariable Integer id, @ModelAttribute("order") Order order, HttpSession session) {
+        if (session.getAttribute("orderFinalized") != null) {
+            // Return an error message or perform appropriate action
+            return "The order has already been finalized.";
+        }
+
         String uniqueCode = generateUniqueCode(); // Implement your logic to generate a unique code
         order.setUniqueCode(uniqueCode);
+
 
         // Get the cart items from the session and add them to the order
         List<CartItem> cartItems = (List<CartItem>) session.getAttribute("restaurants");
@@ -119,6 +126,8 @@ public class RestaurantController {
         }
 
         orderMap.put(uniqueCode, order);
+
+        session.setAttribute("orderFinalized", true);
 
         return uniqueCode;
     }
@@ -163,7 +172,6 @@ public class RestaurantController {
 
         return uniqueCode;
     }
-
 
 
 }
