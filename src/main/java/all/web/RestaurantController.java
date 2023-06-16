@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 
+
 @Controller
 @RequestMapping(path = "/restaurants")
 @RestController
@@ -63,9 +64,23 @@ public class RestaurantController {
             cartItems = new ArrayList<>();
         }
 
-        // Create a new cart item with the provided parameters
-        CartItem cartItem = new CartItem(itemId, quantity, mention, name, price);
-        cartItems.add(cartItem);
+        // Check if the item already exists in the cart
+        boolean itemExists = false;
+        for (CartItem cartItem : cartItems) {
+            if (cartItem.getMenuItem().getId() == itemId) {
+                // Update the quantity and mention of the existing item
+                cartItem.setQuantity(cartItem.getQuantity() + quantity);
+                cartItem.setMention(cartItem.getMention() + ", " + mention);
+                itemExists = true;
+                break;
+            }
+        }
+
+        // If the item doesn't exist in the cart, create a new cart item
+        if (!itemExists) {
+            CartItem cartItem = new CartItem(itemId, quantity, mention, name, price);
+            cartItems.add(cartItem);
+        }
 
         // Update the cart items and restaurant ID in the session
         session.setAttribute("restaurants", cartItems);
@@ -73,6 +88,7 @@ public class RestaurantController {
 
         return new ModelAndView("redirect:/restaurants/cart");
     }
+
 
     @SuppressWarnings("unchecked")
     @RequestMapping(method = RequestMethod.GET, path = "/cart")
