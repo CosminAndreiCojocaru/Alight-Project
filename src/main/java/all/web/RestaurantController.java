@@ -44,50 +44,52 @@ public class RestaurantController {
         return mav;
     }
 
-    @SuppressWarnings("unchecked")
-    @RequestMapping(method = RequestMethod.POST, path = "/{id}/menuitem/addtocart")
-    public ModelAndView addToCart(@PathVariable Integer id, @RequestParam("itemId") Integer itemId,
-                                  @RequestParam("quantity") Integer quantity, @RequestParam("mention") String mention,
-                                  @RequestParam("name") String name, @RequestParam("price") double price,
-                                  HttpSession session) {
+   @SuppressWarnings("unchecked")
+@RequestMapping(method = RequestMethod.POST, path = "/{id}/menuitem/addtocart")
+public ModelAndView addToCart(@PathVariable Integer id, @RequestParam("itemId") Integer itemId,
+                              @RequestParam("quantity") Integer quantity, @RequestParam("mention") String mention,
+                              @RequestParam("name") String name, @RequestParam("price") double price,
+                              HttpSession session) {
 
-        // Check if there is an existing cart for a different restaurant
-        Integer existingRestaurantId = (Integer) session.getAttribute("restaurantId");
-        if (existingRestaurantId != null && !existingRestaurantId.equals(id)) {
-            // If there is an existing cart for a different restaurant, clear it before adding items from a new restaurant
-            session.removeAttribute("restaurants");
-            session.removeAttribute("restaurantId");
-        }
-
-        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("restaurants");
-        if (cartItems == null) {
-            cartItems = new ArrayList<>();
-        }
-
-        // Check if the item already exists in the cart
-        boolean itemExists = false;
-        for (CartItem cartItem : cartItems) {
-            if (cartItem.getMenuItem().getId() == itemId) {
-                // Update the quantity and mention of the existing item
-                cartItem.setQuantity(cartItem.getQuantity() + quantity);
-                cartItem.setMention(cartItem.getMention() + ", " + mention);
-                itemExists = true;
-                break;
-            }
-        }
-
-        // If the item doesn't exist in the cart, create a new cart item
-        if (!itemExists) {
-            CartItem cartItem = new CartItem(itemId, quantity, mention, name, price);
-            cartItems.add(cartItem);
-        }
-
-        // Update the cart items and restaurant ID in the session
-        session.setAttribute("restaurants", cartItems);
-        session.setAttribute("restaurantId", id);
-
-        return new ModelAndView("redirect:/restaurants/cart");
+    // Check if there is an existing cart for a different restaurant
+    Integer existingRestaurantId = (Integer) session.getAttribute("restaurantId");
+    if (existingRestaurantId != null && !existingRestaurantId.equals(id)) {
+        // If there is an existing cart for a different restaurant, clear it before adding items from a new restaurant
+        session.removeAttribute("restaurants");
+        session.removeAttribute("restaurantId");
     }
+
+    List<CartItem> cartItems = (List<CartItem>) session.getAttribute("restaurants");
+    if (cartItems == null) {
+        cartItems = new ArrayList<>();
+    }
+
+    // Check if the item already exists in the cart
+    boolean itemExists = false;
+    for (CartItem cartItem : cartItems) {
+        if (cartItem.getMenuItem().getId() == itemId && cartItem.getMenuItem().getName().equals(name)) {
+            // Update the quantity of the existing item
+            cartItem.setQuantity(cartItem.getQuantity() + quantity);
+            // Concatenate the new mention with the existing one
+            cartItem.setMention(cartItem.getMention() + ", " + mention);
+            itemExists = true;
+            break;
+        }
+    }
+
+    // If the item doesn't exist in the cart, create a new cart item
+    if (!itemExists) {
+        CartItem cartItem = new CartItem(itemId, quantity, mention, name, price);
+        cartItems.add(cartItem);
+    }
+
+    // Update the cart items and restaurant ID in the session
+    session.setAttribute("restaurants", cartItems);
+    session.setAttribute("restaurantId", id);
+
+    return new ModelAndView("redirect:/restaurants/cart");
+}
+
 
 
     @SuppressWarnings("unchecked")
